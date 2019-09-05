@@ -17,6 +17,8 @@ For instance,
 
 * Hooks for moving cursor
 
+Providing two hooks for your actions on moving cursor. It is useful if you want to kick some commands not using =pre-command-hook= and/or =post-command-hook=.
+
  - eh-before-move-cursor-hook
  - eh-after-move-cursor-hook
 
