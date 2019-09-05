@@ -4,6 +4,8 @@
 
 This package provide additional hooks for Emacs.
 
+Please open [[https://github.com/takaxp/ah/issues][issues]] if you have any idea to extend this package. I will implement new additional hooks as much as possible.
+
 * Configure
 
 Put this package into your ~load-path~. After that, enable =ah-mode= minor mode.
