@@ -1,4 +1,4 @@
-;;; ah.el --- Extended hooks -*- lexical-binding: t; -*-
+;;; ah.el --- Additional hooks -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019 Takaaki ISHIKAWA
 
@@ -27,7 +27,7 @@
 
 ;;; Commentary:
 
-;; This package provides a set of extended hooks.
+;; This package provides a set of additional hooks.
 ;; - ah-before-move-cursor-hook
 ;; - ah-after-move-cursor-hook
 
