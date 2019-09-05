@@ -1,0 +1,29 @@
+#+title: Extended Hooks for Emacs
+
+* About
+
+This package provide extended hooks for Emacs.
+
+* Configure
+
+Put this package into your ~load-path~. After that, enable =eh-mode= minor mode.
+
+For instance,
+
+#+begin_src emacs-lisp
+(when (require 'eh nil t)
+  (eh-mode 1))
+#+end_src
+
+* Hooks for moving cursor
+
+ - eh-before-move-cursor-hook
+ - eh-after-move-cursor-hook
+
+** eh-before-move-cursor-hook
+
+ - Hook for =next-line=, =previous-line=, =forward-char=, =backward-char=, =syntax-subword-forward=, =syntax-subword-backward=, =move-beginning-of-line=, =move-end-of-line=, =beginning-of-buffer=, and =end-of-buffer=.
+
+** eh-after-move-cursor-hook
+
+ - Hook for =next-line=, =previous-line=, =forward-char=, =backward-char=, =syntax-subword-forward=, =syntax-subword-backward=, =move-beginning-of-line=, =move-end-of-line=, =beginning-of-buffer=, and =end-of-buffer=.
