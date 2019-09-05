@@ -37,15 +37,24 @@
 
 ;; `ah-before-move-cursor-hook' and `ah-after-move-cursor-hook'
 
+(defgroup ah nil
+  "Additional hooks."
+  :group 'convenience)
+
+(defcustom ah-lighter " Hooks"
+  "Lighter for this."
+  :type 'string
+  :group 'ah)
+
 (defcustom ah-before-move-cursor-hook nil
   "Hook runs before moving the cursor."
   :type 'hook
-  :group 'convenience)
+  :group 'ah)
 
 (defcustom ah-after-move-cursor-hook nil
   "Hook runs after moving the cursor."
   :type 'hook
-  :group 'convenience)
+  :group 'ah)
 
 (defun ah--cur-next-line (f &optional arg try-vscroll)
   "Extend `next-line'.
@@ -159,7 +168,7 @@ ARG is identical to the original arguments."
 (define-minor-mode ah-mode
   "Toggle the minor mode `ah-mode'."
   :init-value nil
-  :lighter " Hooks"
+  :lighter (:eval (format "%s" ah-lighter))
   :global t
   :group 'ah
   (if ah-mode
