@@ -1,0 +1,171 @@
+;;; ah.el --- Extended hooks -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2019 Takaaki ISHIKAWA
+
+;; Author: Takaaki ISHIKAWA <takaxp at ieee dot org>
+;; Keywords: convenience
+;; Version: 0.9.0
+;; Maintainer: Takaaki ISHIKAWA <takaxp at ieee dot org>
+;; URL: https://github.com/takaxp/ah
+;; Package-Requires: ((emacs "25.1"))
+;; Twitter: @takaxp
+
+;; This program is free software: you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with GNU Emacs; see the file COPYING.  If not, write to the
+;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+;; Boston, MA 02110-1301, USA.
+
+;;; Commentary:
+
+;; This package provides a set of extended hooks.
+;; - ah-before-move-cursor-hook
+;; - ah-after-move-cursor-hook
+
+;;; Change Log:
+
+;;; Code:
+
+;; `ah-before-move-cursor-hook' and `ah-after-move-cursor-hook'
+
+(defcustom ah-before-move-cursor-hook nil
+  "Hook runs before moving the cursor."
+  :type 'hook
+  :group 'convenience)
+
+(defcustom ah-after-move-cursor-hook nil
+  "Hook runs after moving the cursor."
+  :type 'hook
+  :group 'convenience)
+
+(defun ah--cur-next-line (f &optional arg try-vscroll)
+  "Extend `next-line'.
+F is the original function.
+ARG and TRY-VSCROLL are identical to the original arguments."
+  (run-hooks 'ah-before-move-cursor-hook)
+  (funcall f arg try-vscroll)
+  (run-hooks 'ah-after-move-cursor-hook))
+
+(defun ah--cur-previous-line (f &optional arg try-vscroll)
+  "Extend `previous-line'.
+F is the original function.
+ARG and TRY-VSCROLL are identical to the original arguments."
+  (run-hooks 'ah-before-move-cursor-hook)
+  (funcall f arg try-vscroll)
+  (run-hooks 'ah-after-move-cursor-hook))
+
+(defun ah--cur-forward-char (f &optional N)
+  "Extend `forward-char'.
+F is the original function.
+N is identical to the original arguments."
+  (run-hooks 'ah-before-move-cursor-hook)
+  (funcall f N)
+  (run-hooks 'ah-after-move-cursor-hook))
+
+(defun ah--cur-backward-char (f &optional N)
+  "Extend `backward-char'.
+F is the original function.
+N is identical to the original arguments."
+  (run-hooks 'ah-before-move-cursor-hook)
+  (funcall f N)
+  (run-hooks 'ah-after-move-cursor-hook))
+
+(defun ah--cur-syntax-subword-forward (f &optional N)
+  "Extend `syntax-subword-forward'.
+F is the original function.
+N is identical to the original arguments."
+  (run-hooks 'ah-before-move-cursor-hook)
+  (funcall f N)
+  (run-hooks 'ah-after-move-cursor-hook))
+
+(defun ah--cur-syntax-subword-backward (f &optional N)
+  "Extend `syntax-subword-backward'.
+F is the original function.
+N is identical to the original arguments."
+  (run-hooks 'ah-before-move-cursor-hook)
+  (funcall f N)
+  (run-hooks 'ah-after-move-cursor-hook))
+
+(defun ah--cur-move-beginning-of-line (f ARG)
+  "Extend `move-beginning-of-line'.
+F is the original function.
+ARG is identical to the original arguments."
+  (run-hooks 'ah-before-move-cursor-hook)
+  (funcall f ARG)
+  (run-hooks 'ah-after-move-cursor-hook))
+
+(defun ah--cur-move-end-of-line (f ARG)
+  "Extend `move-end-of-line'.
+F is the original function.
+ARG is identical to the original arguments."
+  (run-hooks 'ah-before-move-cursor-hook)
+  (funcall f ARG)
+  (run-hooks 'ah-after-move-cursor-hook))
+
+(defun ah--cur-beginning-of-buffer (f &optional ARG)
+  "Extend `beginning-of-buffer'.
+F is the original function.
+ARG is identical to the original arguments."
+  (run-hooks 'ah-before-move-cursor-hook)
+  (funcall f ARG)
+  (run-hooks 'ah-after-move-cursor-hook))
+
+(defun ah--cur-end-of-buffer (f &optional ARG)
+  "Extend `end-of-buffer'.
+F is the original function.
+ARG is identical to the original arguments."
+  (run-hooks 'ah-before-move-cursor-hook)
+  (funcall f ARG)
+  (run-hooks 'ah-after-move-cursor-hook))
+
+(defun ah--setup ()
+  "Setup."
+  ;; For `ah-before-move-cursor-hook' and `ah-after-move-cursor-hook'
+  (advice-add 'next-line :around #'ah--cur-next-line)
+  (advice-add 'previous-line :around #'ah--cur-previous-line)
+  (advice-add 'forward-char :around #'ah--cur-forward-char)
+  (advice-add 'backward-char :around #'ah--cur-backward-char)
+  (advice-add 'syntax-subword-forward :around #'ah--cur-syntax-subword-forward)
+  (advice-add 'syntax-subword-backward :around #'ah--cur-syntax-subword-backward)
+  (advice-add 'move-beginning-of-line :around #'ah--cur-move-beginning-of-line)
+  (advice-add 'move-end-of-line :around #'ah--cur-move-end-of-line)
+  (advice-add 'beginning-of-buffer :around #'ah--cur-beginning-of-buffer)
+  (advice-add 'end-of-buffer :around #'ah--cur-end-of-buffer))
+
+(defun ah--abort ()
+  "Abort."
+  ;; For `ah-before-move-cursor-hook' and `ah-after-move-cursor-hook'
+  (advice-remove 'next-line #'ah--cur-next-line)
+  (advice-remove 'previous-line #'ah--cur-previous-line)
+  (advice-remove 'forward-char #'ah--cur-forward-char)
+  (advice-remove 'backward-char #'ah--cur-backward-char)
+  (advice-remove 'syntax-subword-forward #'ah--cur-syntax-subword-forward)
+  (advice-remove 'syntax-subword-backward #'ah--cur-syntax-subword-backward)
+  (advice-remove 'move-beginning-of-line #'ah--cur-move-beginning-of-line)
+  (advice-remove 'move-end-of-line #'ah--cur-move-end-of-line)
+  (advice-remove 'beginning-of-buffer #'ah--cur-beginning-of-buffer)
+  (advice-remove 'end-of-buffer #'ah--cur-end-of-buffer))
+
+;;;###autoload
+(define-minor-mode ah-mode
+  "Toggle the minor mode `ah-mode'."
+  :init-value nil
+  :lighter " Hooks"
+  :global t
+  :group 'ah
+  (if ah-mode
+      (ah--setup)
+    (ah--abort)))
+
+(provide 'ah)
+
+;;; ah.el ends here

@@ -1,31 +1,31 @@
-#+title: Extended Hooks for Emacs
+#+title: Additional Hooks for Emacs
 
 * About
 
-This package provide extended hooks for Emacs.
+This package provide additional hooks for Emacs.
 
 * Configure
 
-Put this package into your ~load-path~. After that, enable =eh-mode= minor mode.
+Put this package into your ~load-path~. After that, enable =ah-mode= minor mode.
 
 For instance,
 
 #+begin_src emacs-lisp
 (when (require 'eh nil t)
-  (eh-mode 1))
+  (ah-mode 1))
 #+end_src
 
 * Hooks for moving cursor
 
 Providing two hooks for your actions on moving cursor. It is useful if you want to kick some commands not using =pre-command-hook= and/or =post-command-hook=.
 
- - eh-before-move-cursor-hook
- - eh-after-move-cursor-hook
+ - ah-before-move-cursor-hook
+ - ah-after-move-cursor-hook
 
-** eh-before-move-cursor-hook
+** ah-before-move-cursor-hook
 
  - Hook for =next-line=, =previous-line=, =forward-char=, =backward-char=, =syntax-subword-forward=, =syntax-subword-backward=, =move-beginning-of-line=, =move-end-of-line=, =beginning-of-buffer=, and =end-of-buffer=.
 
-** eh-after-move-cursor-hook
+** ah-after-move-cursor-hook
 
  - Hook for =next-line=, =previous-line=, =forward-char=, =backward-char=, =syntax-subword-forward=, =syntax-subword-backward=, =move-beginning-of-line=, =move-end-of-line=, =beginning-of-buffer=, and =end-of-buffer=.
