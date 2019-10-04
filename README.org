@@ -19,15 +19,22 @@ For instance,
 
 * Hooks for moving cursor
 
-Providing two hooks for your actions on moving cursor. It is useful if you want to kick some commands not using =pre-command-hook= and/or =post-command-hook=.
+Providing two hooks for your actions on moving cursor. It is useful if you want to kick some commands without using =pre-command-hook= and/or =post-command-hook=.
 
  - ah-before-move-cursor-hook
  - ah-after-move-cursor-hook
 
-** ah-before-move-cursor-hook
+** ah-before-move-cursor-hook, ah-after-move-cursor-hook
 
  - Hook for =next-line=, =previous-line=, =forward-char=, =backward-char=, =syntax-subword-forward=, =syntax-subword-backward=, =move-beginning-of-line=, =move-end-of-line=, =beginning-of-buffer=, and =end-of-buffer=.
 
-** ah-after-move-cursor-hook
+* Hooks for =C-g= action
 
- - Hook for =next-line=, =previous-line=, =forward-char=, =backward-char=, =syntax-subword-forward=, =syntax-subword-backward=, =move-beginning-of-line=, =move-end-of-line=, =beginning-of-buffer=, and =end-of-buffer=.
+Providing two hooks for your actions on typing =C-g=.
+
+ - ah-before-c-g-hook
+ - ah-after-c-g-hook
+
+** ah-before-c-g-hook, ah-after-c-g-hook
+
+ - Hook for =keyboard-quit= and =isearch-abort=.

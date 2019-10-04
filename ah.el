@@ -4,7 +4,7 @@
 
 ;; Author: Takaaki ISHIKAWA <takaxp at ieee dot org>
 ;; Keywords: convenience
-;; Version: 0.9.0
+;; Version: 0.9.1
 ;; Maintainer: Takaaki ISHIKAWA <takaxp at ieee dot org>
 ;; URL: https://github.com/takaxp/ah
 ;; Package-Requires: ((emacs "25.1"))
@@ -30,6 +30,8 @@
 ;; This package provides a set of additional hooks.
 ;; - ah-before-move-cursor-hook
 ;; - ah-after-move-cursor-hook
+;; - ah-before-c-g-hook
+;; - ah-after-c-g-hook
 
 ;;; Change Log:
 
@@ -53,6 +55,16 @@
 
 (defcustom ah-after-move-cursor-hook nil
   "Hook runs after moving the cursor."
+  :type 'hook
+  :group 'ah)
+
+(defcustom ah-before-c-g-hook nil
+  "Hook runs before \\[keyboard-quit] and related commands."
+  :type 'hook
+  :group 'ah)
+
+(defcustom ah-after-c-g-hook nil
+  "Hook runs after \\[keyboard-quit] and related commands."
   :type 'hook
   :group 'ah)
 
@@ -136,6 +148,20 @@ ARG is identical to the original arguments."
   (funcall f ARG)
   (run-hooks 'ah-after-move-cursor-hook))
 
+(defun ah--cg-keyboard-quit (f)
+  "Extend `keyboard-quit'.
+F is the original function."
+  (run-hooks 'ah-before-c-g-hook)
+  (funcall f)
+  (run-hooks 'ah-after-c-g-hook))
+
+(defun ah--cg-isearch-abort (f)
+  "Extend `isearch-abort'.
+F is the original function."
+  (run-hooks 'ah-before-c-g-hook)
+  (funcall f)
+  (run-hooks 'ah-after-c-g-hook))
+
 (defun ah--setup ()
   "Setup."
   ;; For `ah-before-move-cursor-hook' and `ah-after-move-cursor-hook'
@@ -148,7 +174,9 @@ ARG is identical to the original arguments."
   (advice-add 'move-beginning-of-line :around #'ah--cur-move-beginning-of-line)
   (advice-add 'move-end-of-line :around #'ah--cur-move-end-of-line)
   (advice-add 'beginning-of-buffer :around #'ah--cur-beginning-of-buffer)
-  (advice-add 'end-of-buffer :around #'ah--cur-end-of-buffer))
+  (advice-add 'end-of-buffer :around #'ah--cur-end-of-buffer)
+  (advice-add 'keyboard-quit :around #'ah--cg-keyboard-quit)
+  (advice-add 'isearch-abort :around #'ah--cg-isearch-abort))
 
 (defun ah--abort ()
   "Abort."
@@ -162,7 +190,9 @@ ARG is identical to the original arguments."
   (advice-remove 'move-beginning-of-line #'ah--cur-move-beginning-of-line)
   (advice-remove 'move-end-of-line #'ah--cur-move-end-of-line)
   (advice-remove 'beginning-of-buffer #'ah--cur-beginning-of-buffer)
-  (advice-remove 'end-of-buffer #'ah--cur-end-of-buffer))
+  (advice-remove 'end-of-buffer #'ah--cur-end-of-buffer)
+  (advice-remove 'keyboard-quit #'ah--cg-keyboard-quit)
+  (advice-remove 'isearch-abort #'ah--cg-isearch-abort))
 
 ;;;###autoload
 (define-minor-mode ah-mode
