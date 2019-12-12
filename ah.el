@@ -148,19 +148,27 @@ ARG is identical to the original arguments."
   (funcall f ARG)
   (run-hooks 'ah-after-move-cursor-hook))
 
+(defun ah--cg-post-processing ()
+  "Post processing for aborting of the target command."
+  (when (memq this-command '(keyboard-quit isearch-abort))
+    (run-hooks 'ah-after-c-g-hook))
+  (remove-hook 'post-command-hook #'ah--cg-post-processing))
+
 (defun ah--cg-keyboard-quit (f)
   "Extend `keyboard-quit'.
 F is the original function."
+  (when ah-after-c-g-hook
+    (add-hook 'post-command-hook #'ah--cg-post-processing))
   (run-hooks 'ah-before-c-g-hook)
-  (funcall f)
-  (run-hooks 'ah-after-c-g-hook))
+  (funcall f))
 
 (defun ah--cg-isearch-abort (f)
   "Extend `isearch-abort'.
 F is the original function."
+  (when ah-after-c-g-hook
+    (add-hook 'post-command-hook #'ah--cg-post-processing))
   (run-hooks 'ah-before-c-g-hook)
-  (funcall f)
-  (run-hooks 'ah-after-c-g-hook))
+  (funcall f))
 
 (defun ah--setup ()
   "Setup."
