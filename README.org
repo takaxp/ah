@@ -2,7 +2,7 @@
 
 * About
 
-This package provide additional hooks for Emacs.
+This package provides additional hooks for Emacs.
 
 Please open [[https://github.com/takaxp/ah/issues][issues]] if you have any idea to extend this package. I will implement new additional hooks as much as possible.
 
@@ -19,7 +19,7 @@ For instance,
 
 * Hooks for moving cursor
 
-Providing two hooks for your actions on moving cursor. It is useful if you want to kick some commands without using =pre-command-hook= and/or =post-command-hook=.
+Providing two hooks for your actions on moving the cursor. It is useful when you want to kick some commands without using =pre-command-hook= and/or =post-command-hook=.
 
  - ah-before-move-cursor-hook
  - ah-after-move-cursor-hook
