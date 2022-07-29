@@ -84,81 +84,101 @@
   "Extend `next-line'.
 F is the original function.
 ARG and TRY-VSCROLL are identical to the original arguments."
-  (run-hooks 'ah-before-move-cursor-hook)
+  (when (called-interactively-p 'any)
+    (run-hooks 'ah-before-move-cursor-hook))
   (funcall f arg try-vscroll)
-  (run-hooks 'ah-after-move-cursor-hook))
+  (when (called-interactively-p 'any)
+    (run-hooks 'ah-after-move-cursor-hook)))
 
 (defun ah--cur-previous-line (f &optional arg try-vscroll)
   "Extend `previous-line'.
 F is the original function.
 ARG and TRY-VSCROLL are identical to the original arguments."
-  (run-hooks 'ah-before-move-cursor-hook)
+  (when (called-interactively-p 'any)
+    (run-hooks 'ah-before-move-cursor-hook))
   (funcall f arg try-vscroll)
-  (run-hooks 'ah-after-move-cursor-hook))
+  (when (called-interactively-p 'any)
+    (run-hooks 'ah-after-move-cursor-hook)))
 
 (defun ah--cur-forward-char (f &optional N)
   "Extend `forward-char'.
 F is the original function.
 N is identical to the original arguments."
-  (run-hooks 'ah-before-move-cursor-hook)
+  (when (called-interactively-p 'any)
+    (run-hooks 'ah-before-move-cursor-hook))
   (funcall f N)
-  (run-hooks 'ah-after-move-cursor-hook))
+  (when (called-interactively-p 'any)
+    (run-hooks 'ah-after-move-cursor-hook)))
 
 (defun ah--cur-backward-char (f &optional N)
   "Extend `backward-char'.
 F is the original function.
 N is identical to the original arguments."
-  (run-hooks 'ah-before-move-cursor-hook)
+  (when (called-interactively-p 'any)
+    (run-hooks 'ah-before-move-cursor-hook))
   (funcall f N)
-  (run-hooks 'ah-after-move-cursor-hook))
+  (when (called-interactively-p 'any)
+    (run-hooks 'ah-after-move-cursor-hook)))
 
 (defun ah--cur-syntax-subword-forward (f &optional N)
   "Extend `syntax-subword-forward'.
 F is the original function.
 N is identical to the original arguments."
-  (run-hooks 'ah-before-move-cursor-hook)
+  (when (called-interactively-p 'any)
+    (run-hooks 'ah-before-move-cursor-hook))
   (funcall f N)
-  (run-hooks 'ah-after-move-cursor-hook))
+  (when (called-interactively-p 'any)
+    (run-hooks 'ah-after-move-cursor-hook)))
 
 (defun ah--cur-syntax-subword-backward (f &optional N)
   "Extend `syntax-subword-backward'.
 F is the original function.
 N is identical to the original arguments."
-  (run-hooks 'ah-before-move-cursor-hook)
+  (when (called-interactively-p 'any)
+    (run-hooks 'ah-before-move-cursor-hook))
   (funcall f N)
-  (run-hooks 'ah-after-move-cursor-hook))
+  (when (called-interactively-p 'any)
+    (run-hooks 'ah-after-move-cursor-hook)))
 
 (defun ah--cur-move-beginning-of-line (f ARG)
   "Extend `move-beginning-of-line'.
 F is the original function.
 ARG is identical to the original arguments."
-  (run-hooks 'ah-before-move-cursor-hook)
+  (when (called-interactively-p 'any)
+    (run-hooks 'ah-before-move-cursor-hook))
   (funcall f ARG)
-  (run-hooks 'ah-after-move-cursor-hook))
+  (when (called-interactively-p 'any)
+    (run-hooks 'ah-after-move-cursor-hook)))
 
 (defun ah--cur-move-end-of-line (f ARG)
   "Extend `move-end-of-line'.
 F is the original function.
 ARG is identical to the original arguments."
-  (run-hooks 'ah-before-move-cursor-hook)
+  (when (called-interactively-p 'any)
+    (run-hooks 'ah-before-move-cursor-hook))
   (funcall f ARG)
-  (run-hooks 'ah-after-move-cursor-hook))
+  (when (called-interactively-p 'any)
+    (run-hooks 'ah-after-move-cursor-hook)))
 
 (defun ah--cur-beginning-of-buffer (f &optional ARG)
   "Extend `beginning-of-buffer'.
 F is the original function.
 ARG is identical to the original arguments."
-  (run-hooks 'ah-before-move-cursor-hook)
+  (when (called-interactively-p 'any)
+    (run-hooks 'ah-before-move-cursor-hook))
   (funcall f ARG)
-  (run-hooks 'ah-after-move-cursor-hook))
+  (when (called-interactively-p 'any)
+    (run-hooks 'ah-after-move-cursor-hook)))
 
 (defun ah--cur-end-of-buffer (f &optional ARG)
   "Extend `end-of-buffer'.
 F is the original function.
 ARG is identical to the original arguments."
-  (run-hooks 'ah-before-move-cursor-hook)
+  (when (called-interactively-p 'any)
+    (run-hooks 'ah-before-move-cursor-hook))
   (funcall f ARG)
-  (run-hooks 'ah-after-move-cursor-hook))
+  (when (called-interactively-p 'any)
+    (run-hooks 'ah-after-move-cursor-hook)))
 
 (defun ah--cg-post-processing ()
   "Post processing for aborting of the target command."
